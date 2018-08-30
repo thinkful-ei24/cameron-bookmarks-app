@@ -17,6 +17,8 @@ const bookmarkList = (function(){
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
       <div class="bookmark-title">
         ${bookmark.title}
+        <button class="edit-button"><i class="far fa-edit"></i></button>       
+        <button class="delete-button"><i class="fa fa-trash"></i></button>
       </div>
       <div class = "bookmark-expanded">
         <div>
@@ -28,12 +30,32 @@ const bookmarkList = (function(){
         </div>
       </div>
     </div> `;
-    } else {
+    } else if(bookmark.editing){
+      return `
+      <div class="bookmark-div" data-item-id = ${bookmark.id}>
+        <div class="bookmark-title">
+          ${bookmark.title}
+        </div>
+        <div class = "bookmark-editing">
+          <form id="form-for-editing">
+            <label for="BM-description"></label>
+            <input type="text" name="desc" id="BM-description" value=${bookmark.desc}>
+            <label for="BM-rating"></label><br>
+            <input type="radio" name="rating" value=5>5 Stars<br>
+            <input type="radio" name="rating" value=4>4 Stars<br>
+            <input type="radio" name="rating" value=3>3 Stars<br>
+            <input type="radio" name="rating" value=2>2 Stars<br>
+            <input type="radio" name="rating" value=1>1 Star<br>
+            <button type="submit" class="submit-form">Submit</button>
+          </form>
+        </div>
+      </div>  `;
+    }else {
       return `
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
     <div class="bookmark-title">
       ${bookmark.title}
-      <button class="delete-button"><i class="far fa-edit"></i></button>       
+      <button class="edit-button"><i class="far fa-edit"></i></button>       
       <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
     <div class = "bookmark-collapse">
@@ -59,7 +81,7 @@ const bookmarkList = (function(){
 
     // prints error message, if any, otherwise clears error message from DOM
     if (store.error){
-      $('.error-message').html(store.error);
+      $('.error-message').html(`<p>${store.error}</p>`);
     } else {
       $('.error-message').html('');
     }
@@ -89,7 +111,7 @@ const bookmarkList = (function(){
     }
 
     // creates html for list of bookmarks
-    const bookmarkHtml = generateBookmarkString(store.bookmarks);
+    const bookmarkHtml = generateBookmarkString(bookmarks);
     $('.bookmark-div').html(bookmarkHtml);
 
   };
@@ -108,6 +130,11 @@ const bookmarkList = (function(){
     });
   };
 
+  const error = function(response){
+    store.error = response.responseJSON.message;
+    render();
+  };
+
   const handleNewBookmarkSubmit = function(){
     $('.add-new-bookmark').on('click', '.submit-form', function(event){
       event.preventDefault();
@@ -117,16 +144,77 @@ const bookmarkList = (function(){
         store.error = null;
         store.adding = false;
         render();
-        console.log(store);
       };
-      api.createBookmark(data, success, success);
+      api.createBookmark(data, success, error);
 
+    });
+  };
+
+  const handleDeleteBookmarkClicked = function(){
+    $('.bookmark-div').on('click', '.delete-button', function(event){
+      const id = getBookmarkIdFromElement(event.target);
+      event.stopPropagation();
+      const success = function(){
+        store.findAndDelete(id);
+        render();
+      };
+      api.deleteBookmark(id, success, error);
+    });
+  };
+
+  const handleExpandBookmarkClicked = function(){
+    $('.bookmark-div').on('click', '.bookmark-title', function(){
+      const id = getBookmarkIdFromElement(event.target);
+      // expands/collapses when clicked unless editing, then collapses
+      if (!store.findById(id).editing){
+        store.findById(id).expanded = !store.findById(id).expanded;
+      } else {
+        store.findById(id).expanded = false;
+        store.findById(id).editing = false;
+      }  
+      render();
+    });
+  };
+
+  const handleMinRating = function(){
+    $('#choose-rating').on('change', function(event){
+      const rating = $('#choose-rating').val();
+      store.setMinRating(rating);
+      render();
+    });
+  };
+
+  const handleEditBookmarkClicked = function(){
+    $('.bookmark-div').on('click', '.edit-button', function(event){
+      event.stopPropagation();
+      const id = getBookmarkIdFromElement(event.target);
+      store.findById(id).editing = true;
+      render();
+    });
+  };
+
+  const handleSubmitEditBookmark = function(){
+    $('.bookmark-div').on('click', '.submit-form', function(event){
+      event.preventDefault();
+      const id = getBookmarkIdFromElement(event.target);
+      const data = $('#form-for-editing').serializeJson();
+      const success = function(){
+        store.findAndUpdate(id, data);
+        store.findById(id).editing = false;
+        render();
+      };
+      api.editBookmark(id, data, success, error);
     });
   };
 
   const bindEventListeners = function(){
     handleAddClicked();
     handleNewBookmarkSubmit();
+    handleDeleteBookmarkClicked();
+    handleExpandBookmarkClicked();
+    handleEditBookmarkClicked();
+    handleMinRating();
+    handleSubmitEditBookmark();
   };
 
 

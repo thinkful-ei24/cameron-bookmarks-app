@@ -23,8 +23,8 @@ const store = (function(){
     this.minRating = rating;
   };
 
-  const toggleAdding = function(){
-    this.adding = !this.adding;
+  const findAndUpdate = function(id, data){
+    Object.assign(this.findById(id), data);
   };
 
   return {
@@ -35,8 +35,7 @@ const store = (function(){
     findById,
     findAndDelete,
     setMinRating,
-    toggleAdding
+    findAndUpdate
   };
 
 })();
-
