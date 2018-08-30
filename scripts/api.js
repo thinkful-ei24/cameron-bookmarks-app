@@ -35,13 +35,3 @@ const api = (function(){
   };
 })();
 
-// let book = {
-//   url: 'https://www.google.com/',
-//   title: 'Google',
-//   desc: 'great website',
-//   rating: 5
-// };
-
-// const callback = function(response){
-//   console.log(response);
-// };

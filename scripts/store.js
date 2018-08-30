@@ -38,4 +38,5 @@ const store = (function(){
     toggleAdding
   };
 
-});
+})();
+
