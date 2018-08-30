@@ -104,6 +104,7 @@ const bookmarkList = (function(){
       <input type="radio" name="rating" value=2>2 Stars<br>
       <input type="radio" name="rating" value=1>1 Star<br>
       <button type="submit" class="submit-form">Submit</button>
+      <button class="cancel-new-bookmark">Cancel</button>
     </form>`;
       $('.add-new-bookmark').html(newBookmarkForm);
     } else {
@@ -150,12 +151,21 @@ const bookmarkList = (function(){
     });
   };
 
+  const handleCancelNewBookmark = function(){
+    $('.add-new-bookmark').on('click', '.cancel-new-bookmark', function(event){
+      event.preventDefault();
+      store.adding = false;
+      render();
+    });
+  };
+
   const handleDeleteBookmarkClicked = function(){
     $('.bookmark-div').on('click', '.delete-button', function(event){
       const id = getBookmarkIdFromElement(event.target);
       event.stopPropagation();
       const success = function(){
         store.findAndDelete(id);
+        store.error = null;
         render();
       };
       api.deleteBookmark(id, success, error);
@@ -201,6 +211,7 @@ const bookmarkList = (function(){
       const success = function(){
         store.findAndUpdate(id, data);
         store.findById(id).editing = false;
+        store.error = null;
         render();
       };
       api.editBookmark(id, data, success, error);
@@ -215,6 +226,7 @@ const bookmarkList = (function(){
     handleEditBookmarkClicked();
     handleMinRating();
     handleSubmitEditBookmark();
+    handleCancelNewBookmark();
   };
 
 
