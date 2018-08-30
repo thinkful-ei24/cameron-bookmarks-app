@@ -7,4 +7,14 @@
 
 .bookmark-title{
   background-color: lightblue;
+  text-align: left;
+  padding: 0 10px;
+}
+
+.edit-button{
+  float: right;
+}
+
+.delete-button{
+  float: right;
 }
