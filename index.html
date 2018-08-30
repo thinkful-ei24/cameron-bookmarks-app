@@ -1,13 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>My Bookmarks</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="styles/index.css" />
 </head>
 <body>
+  <header role="banner">
+    <h1>My Bookmarks</h1>
+  </header>   
+  <form>
+    <label for="adding-bookmark"></label>
+    <button id="adding-bookmark">Add Bookmark</button>
+    <label for="choose-rating"></label>
+    <select name="rating" id="choose-rating">
+      <option value=null>Minimum Rating</option>
+      <option value=5>5 Stars</option>
+      <option value=4>4 Stars</option>
+      <option value=3>3 Stars</option>
+      <option value=2>2 Stars</option>
+    </select>
+  </form> 
+  <div class="bookmark-div">
+    <div class="bookmark-title">
+      Bookmark Title
+      <button class="delete-button"><i class="far fa-edit"></i></button>       
+      <button class="delete-button"><i class="fa fa-trash"></i></button>
+    </div>
+    <div class = "bookmark-collapse">
+      Rating: 4
+    </div>
+  </div> 
+  <div class="bookmark-div">
+      <div class="bookmark-title">
+        Bookmark Title
+      </div>
+      <div class = "bookmark-expanded">
+        <div>
+         <p>Description of bookmark</p> 
+         <a href="https://www.google.com/" target="blank"><button>Visit Site</button></a>
+         <div class = "bookmark-collapse">
+            Rating: 4
+          </div>
+        </div>
+      </div>
+    </div> 
+    <form id="add-new-bookmark">
+      <h2>Create Bookmark</h2>
+      <label for="bookmark-title"></label>
+      <input type="text" name="title" id="bookmark-title" placeholder="Title">
+      <label for="bookmark-url"></label>
+      <input type="text" name="url" id="bookmark-url" placeholder="url">
+      <label for="bookmark-description"></label>
+      <input type="text" name="description" id="bookmark-description" placeholder="Description"><br>
+      <label for="bookmark-rating">Rating:</label><br>
+      <input type="radio" name="rating" value=5 checked>5 Stars<br>
+      <input type="radio" name="rating" value=4>4 Stars<br>
+      <input type="radio" name="rating" value=3>3 Stars<br>
+      <input type="radio" name="rating" value=2>2 Stars<br>
+      <input type="radio" name="rating" value=1>1 Star
+    </form>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="scripts/api.js"></script>
   <script type="text/javascript" src="scripts/store.js"></script>

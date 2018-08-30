@@ -1,0 +1,10 @@
+.bookmark-div{
+  border: solid darkblue 1px;
+  text-align: center;
+  width: 75%;
+  margin: 10px auto;
+}
+
+.bookmark-title{
+  background-color: lightblue;
+}
