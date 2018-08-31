@@ -91,7 +91,7 @@ const bookmarkList = (function(){
 
     // prints error message, if any, otherwise clears error message from DOM
     if (store.error){
-      $('.error-message').html(`<p>${store.error}</p>`);
+      $('.error-message').html(`<p class="error-text">${store.error}</p>`);
     } else {
       $('.error-message').html('');
     }

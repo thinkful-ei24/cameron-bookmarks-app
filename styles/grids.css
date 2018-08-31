@@ -71,8 +71,14 @@ h2{
 .bookmark-expanded, .bookmark-collapsed, .visit-site{
   font-size: 11px;
 }
-input, label, .submit-form, .cancel-new-bookmark{
+input, label{
+  font-size: 10px;
+}
+.submit-form, .cancel-new-bookmark{
   font-size: 12px;
+}
+.error-text{
+  font-size: 18px;
 }
 
 
@@ -120,7 +126,13 @@ input, label, .submit-form, .cancel-new-bookmark{
   .bookmark-expanded, .bookmark-collapsed, .visit-site{
     font-size: 18px;
   }
-  input, label, .submit-form, .cancel-new-bookmark{
+  input, label{
+    font-size: 18px;
+  }
+  .submit-form, .cancel-new-bookmark{
     font-size: 20px;
+  }
+  .error-text{
+    font-size: 30px;
   }
 }

@@ -21,8 +21,6 @@
   <main role="main">
   <div class="row">
     <form class="add-rating-form">
-      <label for="adding-bookmark"></label>
-      <button id="adding-bookmark">Add Bookmark</button>
       <label for="choose-rating"></label>
       <select name="rating" id="choose-rating">
         <option value=1>Minimum Rating</option>
@@ -31,13 +29,15 @@
         <option value=3>3 Stars</option>
         <option value=2>2 Stars</option>
       </select>
+      <label for="adding-bookmark"></label>
+      <button id="adding-bookmark">Add Bookmark</button>
     </form>
   </div>
   <div class="row">
-    <div class = "error-message"></div>
+    <div class = "error-message" aria-live="assertive"></div>
   </div>
   <div class="row">
-    <div class = "add-new-bookmark-form"></div>
+    <div class = "add-new-bookmark-form" aria-live="polite"></div>
   </div>
   <div class="row">
     <div class = "outer-bookmark-div"></div>
