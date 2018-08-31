@@ -31,8 +31,8 @@ const bookmarkList = (function(){
       </div>
       <div class="bookmark-expanded">
          <p class="description">${bookmark.desc}</p> 
-         <a href=${bookmark.url} target="blank"><button>Visit Site</button></a>
-         <div>
+         <a href=${bookmark.url} target="blank"><button class="visit-site">Visit Site</button></a>
+         <div class="rating">
             Rating: ${generateRating(bookmark.rating)}
           </div>
         </div>  
@@ -46,13 +46,13 @@ const bookmarkList = (function(){
         <div class = "bookmark-editing">
           <form id="form-for-editing">
             <label for="BM-description"></label>
-            <input type="text" name="desc" id="BM-description" value=${bookmark.desc}>
+            <input type="text" name="desc" id="BM-description" value="${bookmark.desc}">
             <label for="BM-rating"></label><br>
-            <input type="radio" name="rating" value=5>5 Stars<br>
-            <input type="radio" name="rating" value=4>4 Stars<br>
-            <input type="radio" name="rating" value=3>3 Stars<br>
-            <input type="radio" name="rating" value=2>2 Stars<br>
-            <input type="radio" name="rating" value=1>1 Star<br>
+            <input type="radio" name="rating" id="five-star" value=5><label for="five-star">5 Stars</label><br>
+            <input type="radio" name="rating" id="four-star" value=5><label for="four-star">4 Stars</label><br>
+            <input type="radio" name="rating" id="three-star" value=5><label for="three-star">3 Stars</label><br>
+            <input type="radio" name="rating" id="two-star" value=5><label for="two-star">2 Stars</label><br>
+            <input type="radio" name="rating" id="one-star" value=5><label for="one-star">1 Star </label><br>
             <button type="submit" class="submit-form">Submit</button>
           </form>
         </div>
@@ -66,7 +66,9 @@ const bookmarkList = (function(){
       <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
     <div class = "bookmark-collapsed">
-      Rating: ${generateRating(bookmark.rating)}
+      <div class="rating">
+        Rating: ${generateRating(bookmark.rating)}
+      </div>
     </div>
   </div> `;
       
@@ -105,11 +107,11 @@ const bookmarkList = (function(){
       <label for="bookmark-description"></label>
       <input type="text" name="desc" id="bookmark-description" placeholder="Description"><br>
       <label for="bookmark-rating">Rating:</label><br>
-      <input type="radio" name="rating" value=5 checked>5 Stars<br>
-      <input type="radio" name="rating" value=4>4 Stars<br>
-      <input type="radio" name="rating" value=3>3 Stars<br>
-      <input type="radio" name="rating" value=2>2 Stars<br>
-      <input type="radio" name="rating" value=1>1 Star<br>
+      <input type="radio" name="rating" id="five-star" value=5 checked><label for="five-star">5 Stars</label><br>
+      <input type="radio" name="rating" id="four-star" value=5><label for="four-star">4 Stars</label><br>
+      <input type="radio" name="rating" id="three-star" value=5><label for="three-star">3 Stars</label><br>
+      <input type="radio" name="rating" id="two-star" value=5><label for="two-star">2 Stars</label><br>
+      <input type="radio" name="rating" id="one-star" value=5><label for="one-star">1 Star </label><br>
       <button type="submit" class="submit-form">Submit</button>
       <button class="cancel-new-bookmark">Cancel</button>
     </form>`;
@@ -120,7 +122,7 @@ const bookmarkList = (function(){
 
     // creates html for list of bookmarks
     const bookmarkHtml = generateBookmarkString(bookmarks);
-    $('.bookmark-div').html(bookmarkHtml);
+    $('.outer-bookmark-div').html(bookmarkHtml);
 
   };
 
@@ -167,7 +169,7 @@ const bookmarkList = (function(){
   };
 
   const handleDeleteBookmarkClicked = function(){
-    $('.bookmark-div').on('click', '.delete-button', function(event){
+    $('.outer-bookmark-div').on('click', '.delete-button', function(event){
       const id = getBookmarkIdFromElement(event.target);
       event.stopPropagation();
       const success = function(){
@@ -180,7 +182,7 @@ const bookmarkList = (function(){
   };
 
   const handleExpandBookmarkClicked = function(){
-    $('.bookmark-div').on('click', '.bookmark-title', function(){
+    $('.outer-bookmark-div').on('click', '.bookmark-title', function(){
       const id = getBookmarkIdFromElement(event.target);
       // expands/collapses when clicked unless editing, then collapses
       if (!store.findById(id).editing){
@@ -202,7 +204,7 @@ const bookmarkList = (function(){
   };
 
   const handleEditBookmarkClicked = function(){
-    $('.bookmark-div').on('click', '.edit-button', function(event){
+    $('.outer-bookmark-div').on('click', '.edit-button', function(event){
       event.stopPropagation();
       const id = getBookmarkIdFromElement(event.target);
       store.findById(id).expanded = false;
@@ -212,7 +214,7 @@ const bookmarkList = (function(){
   };
 
   const handleSubmitEditBookmark = function(){
-    $('.bookmark-div').on('click', '.submit-form', function(event){
+    $('.outer-bookmark-div').on('click', '.submit-form', function(event){
       event.preventDefault();
       const id = getBookmarkIdFromElement(event.target);
       const data = $('#form-for-editing').serializeJson();
@@ -220,6 +222,7 @@ const bookmarkList = (function(){
         store.findAndUpdate(id, data);
         store.findById(id).editing = false;
         store.error = null;
+        console.log(store.findById(id).desc);
         render();
       };
       api.editBookmark(id, data, success, error);

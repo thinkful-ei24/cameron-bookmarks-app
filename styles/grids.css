@@ -50,6 +50,31 @@
   width: 100%;
 }
 
+h1{
+  font-size: 30px;
+}
+.bookmark-title{
+  font-size: 15px;
+}
+.delete-button, .edit-button{
+  font-size: 11px;
+}
+#adding-bookmark, #choose-rating{
+  font-size: 12px;
+}
+h2{
+  font-size: 18px;
+}
+.rating{
+  font-size: 12px;
+}
+.bookmark-expanded, .bookmark-collapsed, .visit-site{
+  font-size: 11px;
+}
+input, label, .submit-form, .cancel-new-bookmark{
+  font-size: 12px;
+}
+
 
 /* Non-mobile, grid */
 @media only screen and (min-width: 640px) {
@@ -71,5 +96,31 @@
   /* 12 columns, 12/12 */
   .col-12 {
     width: 100%;
+  }
+
+  /* change font-sizes */
+  h1{
+    font-size: 50px;
+  }
+  .bookmark-title{
+    font-size: 25px;
+  }
+  .delete-button, .edit-button{
+    font-size: 19px;
+  }
+  #adding-bookmark, #choose-rating{
+    font-size: 20px;
+  }
+  h2{
+    font-size: 30px;
+  }
+  .rating{
+    font-size: 20px;
+  }
+  .bookmark-expanded, .bookmark-collapsed, .visit-site{
+    font-size: 18px;
+  }
+  input, label, .submit-form, .cancel-new-bookmark{
+    font-size: 20px;
   }
 }
