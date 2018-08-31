@@ -20,15 +20,13 @@ const bookmarkList = (function(){
         <button class="edit-button"><i class="fa fa-pencil"></i></button>       
         <button class="delete-button"><i class="fa fa-trash"></i></button>
       </div>
-      <div class = "bookmark-expanded">
-        <div>
-         <p>${bookmark.desc}</p> 
+      <div class="bookmark-expanded">
+         <p class="description">${bookmark.desc}</p> 
          <a href=${bookmark.url} target="blank"><button>Visit Site</button></a>
-         <div class = "bookmark-collapse">
+         <div>
             Rating: ${bookmark.rating}
           </div>
-        </div>
-      </div>
+        </div>  
     </div> `;
     } else if(bookmark.editing){
       return `
@@ -58,7 +56,7 @@ const bookmarkList = (function(){
       <button class="edit-button"><i class="fa fa-pencil"></i></button>       
       <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
-    <div class = "bookmark-collapse">
+    <div class = "bookmark-collapsed">
       Rating: ${bookmark.rating}
     </div>
   </div> `;
@@ -137,9 +135,9 @@ const bookmarkList = (function(){
   };
 
   const handleNewBookmarkSubmit = function(){
-    $('.add-new-bookmark').on('click', '.submit-form', function(event){
+    $('.add-new-bookmark-form').on('click', '.submit-form', function(event){
       event.preventDefault();
-      const data = $('#add-new-bookmark').serializeJson();
+      const data = $('#add-new-bookmark-form').serializeJson();
       const success = function(response){
         store.addBookmark(response);
         store.error = null;
@@ -152,7 +150,7 @@ const bookmarkList = (function(){
   };
 
   const handleCancelNewBookmark = function(){
-    $('.add-new-bookmark').on('click', '.cancel-new-bookmark', function(event){
+    $('.add-new-bookmark-form').on('click', '.cancel-new-bookmark', function(event){
       event.preventDefault();
       store.adding = false;
       render();

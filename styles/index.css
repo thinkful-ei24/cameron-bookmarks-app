@@ -1,12 +1,13 @@
 .bookmark-div{
   border: solid darkblue 1px;
+  border-radius: 2%;
   text-align: center;
   width: 90%;
   margin: 10px auto;
 }
 
 .bookmark-title{
-  background-color: lightblue;
+  background-color:rgba(16, 16, 137, 0.57);
   text-align: left;
   padding: 0 10px;
 }
@@ -14,4 +15,18 @@
 .error-message{
   text-align: center;
   color: red;
+}
+
+.delete-button, .edit-button {
+  float: right;
+}
+
+.bookmark-expanded, .bookmark-collapsed, .bookmark-editing{
+  background-color: rgba(16, 16, 137, 0.13);
+}
+
+.description{
+  margin-top: 0;
+  padding: 5px;
+  text-align: left;
 }
