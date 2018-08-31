@@ -21,14 +21,15 @@
   <main role="main">
   <div class="row">
     <form class="add-rating-form">
-      <label for="choose-rating"></label>
-      <select name="rating" id="choose-rating">
-        <option value=1>Minimum Rating</option>
-        <option value=5>5 Stars</option>
-        <option value=4>4 Stars</option>
-        <option value=3>3 Stars</option>
-        <option value=2>2 Stars</option>
-      </select>
+      <label for="choose-rating" aria-label="choose minimum rating to filter by">
+        <select name="rating" id="choose-rating">
+          <option value=1>Minimum Rating</option>
+          <option value=5>5 Stars</option>
+          <option value=4>4 Stars</option>
+          <option value=3>3 Stars</option>
+          <option value=2>2 Stars</option>
+        </select>
+      </label>  
       <label for="adding-bookmark"></label>
       <button id="adding-bookmark">Add Bookmark</button>
     </form>
