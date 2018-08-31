@@ -26,8 +26,8 @@ const bookmarkList = (function(){
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
       <div class="bookmark-title">
         ${bookmark.title}
-        <button class="edit-button"><i class="fa fa-pencil"></i></button>       
-        <button class="delete-button"><i class="fa fa-trash"></i></button>
+        <button class="delete-button" aria-label="click to delete bookmark"><i class="fa fa-trash"></i></button>
+        <button class="edit-button" aria-label="click to edit bookmark"><i class="fa fa-pencil"></i></button>       
       </div>
       <div class="bookmark-expanded">
          <p class="description">${bookmark.desc}</p> 
@@ -44,15 +44,16 @@ const bookmarkList = (function(){
           ${bookmark.title}
         </div>
         <div class = "bookmark-editing">
-          <form id="form-for-editing">
-            <label for="BM-description"></label>
-            <input type="text" name="desc" id="BM-description" value="${bookmark.desc}">
-            <label for="BM-rating"></label><br>
+          <form id="form-for-editing" aria-label="Form to Edit Bookmark">
+            <label for="BM-description">Description:</label>
+            <input type="text" name="desc" id="BM-description" value="${bookmark.desc}"><br>
+            <label for="BM-rating">Rating:<br>
             <input type="radio" name="rating" id="five-star" value=5><label for="five-star">5 Stars</label><br>
-            <input type="radio" name="rating" id="four-star" value=5><label for="four-star">4 Stars</label><br>
-            <input type="radio" name="rating" id="three-star" value=5><label for="three-star">3 Stars</label><br>
-            <input type="radio" name="rating" id="two-star" value=5><label for="two-star">2 Stars</label><br>
-            <input type="radio" name="rating" id="one-star" value=5><label for="one-star">1 Star </label><br>
+            <input type="radio" name="rating" id="four-star" value=4><label for="four-star">4 Stars</label><br>
+            <input type="radio" name="rating" id="three-star" value=3><label for="three-star">3 Stars</label><br>
+            <input type="radio" name="rating" id="two-star" value=2><label for="two-star">2 Stars</label><br>
+            <input type="radio" name="rating" id="one-star" value=1><label for="one-star">1 Star </label><br>
+            </label>
             <button type="submit" class="submit-form">Submit</button>
           </form>
         </div>
@@ -62,8 +63,8 @@ const bookmarkList = (function(){
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
     <div class="bookmark-title">
       ${bookmark.title}
-      <button class="edit-button"><i class="fa fa-pencil"></i></button>       
-      <button class="delete-button"><i class="fa fa-trash"></i></button>
+      <button class="delete-button" aria-label="click to delete bookmark"><i class="fa fa-trash"></i></button>
+      <button class="edit-button" aria-label="click to edit bookmark"><i class="fa fa-pencil"></i></button>       
     </div>
     <div class = "bookmark-collapsed">
       <div class="rating">
@@ -100,18 +101,18 @@ const bookmarkList = (function(){
       const newBookmarkForm = `
       <form id="add-new-bookmark-form">
       <h2>Create Bookmark</h2>
-      <label for="bookmark-title"></label>
-      <input type="text" name="title" id="bookmark-title" placeholder="Title">
-      <label for="bookmark-url"></label>
-      <input type="text" name="url" id="bookmark-url" placeholder="url">
-      <label for="bookmark-description"></label>
-      <input type="text" name="desc" id="bookmark-description" placeholder="Description"><br>
+      <label for="bookmark-title">Title:</label>
+      <input type="text" name="title" id="bookmark-title" placeholder="Google"><br>
+      <label for="bookmark-url">URL:</label>
+      <input type="text" name="url" id="bookmark-url" placeholder="https://www.google.com/"><br>
+      <label for="bookmark-description">Description:</label>
+      <input type="text" name="desc" id="bookmark-description" placeholder="Great search website"><br>
       <label for="bookmark-rating">Rating:</label><br>
       <input type="radio" name="rating" id="five-star" value=5 checked><label for="five-star">5 Stars</label><br>
-      <input type="radio" name="rating" id="four-star" value=5><label for="four-star">4 Stars</label><br>
-      <input type="radio" name="rating" id="three-star" value=5><label for="three-star">3 Stars</label><br>
-      <input type="radio" name="rating" id="two-star" value=5><label for="two-star">2 Stars</label><br>
-      <input type="radio" name="rating" id="one-star" value=5><label for="one-star">1 Star </label><br>
+      <input type="radio" name="rating" id="four-star" value=4><label for="four-star">4 Stars</label><br>
+      <input type="radio" name="rating" id="three-star" value=3><label for="three-star">3 Stars</label><br>
+      <input type="radio" name="rating" id="two-star" value=2><label for="two-star">2 Stars</label><br>
+      <input type="radio" name="rating" id="one-star" value=1><label for="one-star">1 Star </label><br>
       <button type="submit" class="submit-form">Submit</button>
       <button class="cancel-new-bookmark">Cancel</button>
     </form>`;
@@ -163,6 +164,7 @@ const bookmarkList = (function(){
   const handleCancelNewBookmark = function(){
     $('.add-new-bookmark-form').on('click', '.cancel-new-bookmark', function(event){
       event.preventDefault();
+      store.error = null;
       store.adding = false;
       render();
     });
@@ -222,7 +224,6 @@ const bookmarkList = (function(){
         store.findAndUpdate(id, data);
         store.findById(id).editing = false;
         store.error = null;
-        console.log(store.findById(id).desc);
         render();
       };
       api.editBookmark(id, data, success, error);

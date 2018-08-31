@@ -39,3 +39,11 @@ body{
 #choose-rating{
   float: right;
 }
+
+input{
+  margin: 2px 3px;
+}
+
+.cancel-new-bookmark, .submit-form{
+  margin-top: 10px;
+}
