@@ -1,7 +1,7 @@
 .bookmark-div{
   border: solid darkblue 1px;
   text-align: center;
-  width: 75%;
+  width: 90%;
   margin: 10px auto;
 }
 
@@ -11,10 +11,7 @@
   padding: 0 10px;
 }
 
-.edit-button{
-  float: right;
-}
-
-.delete-button{
-  float: right;
+.error-message{
+  text-align: center;
+  color: red;
 }

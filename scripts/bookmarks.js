@@ -17,7 +17,7 @@ const bookmarkList = (function(){
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
       <div class="bookmark-title">
         ${bookmark.title}
-        <button class="edit-button"><i class="far fa-edit"></i></button>       
+        <button class="edit-button"><i class="fa fa-pencil"></i></button>       
         <button class="delete-button"><i class="fa fa-trash"></i></button>
       </div>
       <div class = "bookmark-expanded">
@@ -55,7 +55,7 @@ const bookmarkList = (function(){
       <div class="bookmark-div" data-item-id = ${bookmark.id}>
     <div class="bookmark-title">
       ${bookmark.title}
-      <button class="edit-button"><i class="far fa-edit"></i></button>       
+      <button class="edit-button"><i class="fa fa-pencil"></i></button>       
       <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
     <div class = "bookmark-collapse">
@@ -89,7 +89,7 @@ const bookmarkList = (function(){
     // adds new bookmark form if add bookmark was clicked
     if (store.adding){
       const newBookmarkForm = `
-      <form id="add-new-bookmark">
+      <form id="add-new-bookmark-form">
       <h2>Create Bookmark</h2>
       <label for="bookmark-title"></label>
       <input type="text" name="title" id="bookmark-title" placeholder="Title">
@@ -106,9 +106,9 @@ const bookmarkList = (function(){
       <button type="submit" class="submit-form">Submit</button>
       <button class="cancel-new-bookmark">Cancel</button>
     </form>`;
-      $('.add-new-bookmark').html(newBookmarkForm);
+      $('.add-new-bookmark-form').html(newBookmarkForm);
     } else {
-      $('.add-new-bookmark').html('');
+      $('.add-new-bookmark-form').html('');
     }
 
     // creates html for list of bookmarks
