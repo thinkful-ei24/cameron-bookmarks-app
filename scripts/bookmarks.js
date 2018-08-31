@@ -11,6 +11,15 @@ $.fn.extend({
 });
 
 const bookmarkList = (function(){
+
+  const generateRating = function(rating){
+    const ratingArray = Array(5).fill('<i class="fa fa-star-o"></i>');
+    for (let i=0; i<rating; i++){
+      ratingArray[i]='<i class="fa fa-star"></i>';
+    }
+    return ratingArray.join('');
+  };
+
   const generateBookmarkElement = function(bookmark){
     if (bookmark.expanded){
       return `
@@ -24,7 +33,7 @@ const bookmarkList = (function(){
          <p class="description">${bookmark.desc}</p> 
          <a href=${bookmark.url} target="blank"><button>Visit Site</button></a>
          <div>
-            Rating: ${bookmark.rating}
+            Rating: ${generateRating(bookmark.rating)}
           </div>
         </div>  
     </div> `;
@@ -57,7 +66,7 @@ const bookmarkList = (function(){
       <button class="delete-button"><i class="fa fa-trash"></i></button>
     </div>
     <div class = "bookmark-collapsed">
-      Rating: ${bookmark.rating}
+      Rating: ${generateRating(bookmark.rating)}
     </div>
   </div> `;
       
@@ -196,6 +205,7 @@ const bookmarkList = (function(){
     $('.bookmark-div').on('click', '.edit-button', function(event){
       event.stopPropagation();
       const id = getBookmarkIdFromElement(event.target);
+      store.findById(id).expanded = false;
       store.findById(id).editing = true;
       render();
     });
